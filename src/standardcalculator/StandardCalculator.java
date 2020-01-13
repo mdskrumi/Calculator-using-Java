@@ -44,12 +44,12 @@ public class StandardCalculator extends Frame {
         screen.setAlignment(2);
         screen.setBounds(10,80,330,120);
         screen.setText(str);
-        screen.setFont(new Font("Lucida",Font.PLAIN,28));
+        screen.setFont(new Font("Lucida",Font.PLAIN,26));
         screen.setForeground(Color.black);
         add(screen);
         
         
-        Font buttonFont = new Font("Lucida",Font.BOLD,20);
+        Font buttonFont = new Font("Lucida",Font.PLAIN,20);
         
         
         Button percentage = new Button("%");
@@ -557,8 +557,8 @@ public class StandardCalculator extends Frame {
         aboutMe.setBounds(10,595,330,80);
         aboutMe.setText(about);
         aboutMe.setBackground(Color.gray);
-        aboutMe.setFont(new Font("Lucida",Font.PLAIN,28));
-        aboutMe.setForeground(Color.black);
+        aboutMe.setFont(new Font("Lucida",Font.BOLD,22));
+        aboutMe.setForeground(Color.white);
         add(aboutMe);
         
         setResizable(false);
