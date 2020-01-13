@@ -11,13 +11,26 @@ import java.awt.event.WindowEvent;
 public class StandardCalculator extends Frame {
     
     
+    private static final String about = "Thank You";
+    
+    private String str = "0";
+    private double currentNumber = 0;
+    private double numberOne , numberTwo;
+    private byte sign = 0; 
+    
+    // 1 for add
+    // 2 for sub
+    // 3 for mul
+    // 4 for div
+    // 5 for %
+    
     StandardCalculator(){
         addWindowListener(new WindowAdapter(){  
             public void windowClosing(WindowEvent e) {  
                 dispose();  
             }  
         });  
-        setSize(350,600);
+        setSize(350,685);
         
         Label name = new Label();
         name.setAlignment(0);
@@ -27,13 +40,11 @@ public class StandardCalculator extends Frame {
         name.setForeground(Color.black);
         add(name);
         
-        
-        
         Label screen = new Label();
         screen.setAlignment(2);
         screen.setBounds(10,80,330,120);
-        screen.setText("0");
-        screen.setFont(new Font("Lucida",Font.PLAIN,30));
+        screen.setText(str);
+        screen.setFont(new Font("Lucida",Font.PLAIN,28));
         screen.setForeground(Color.black);
         add(screen);
         
@@ -49,7 +60,23 @@ public class StandardCalculator extends Frame {
         percentage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(sign == 0){
+                    numberOne = Double.parseDouble(str);
+                    sign = 5;
+                    str = "0";
+                    screen.setText(str); 
+                    System.out.println("Number One: " + numberOne);
+                }else{
+                    numberTwo = Double.parseDouble(str);
+                    numberOne = numberOne * ( numberTwo / 100 );
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                if(numberOne == 0.0){
+                    str = "0";
+                    screen.setText(str);
+                }
             }
         });
         
@@ -63,7 +90,8 @@ public class StandardCalculator extends Frame {
         CE.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                str = "0";
+                screen.setText(str);
             }
         });
         
@@ -75,7 +103,10 @@ public class StandardCalculator extends Frame {
         C.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                str = "0";
+                numberOne = 0;
+                numberTwo = 0;
+                screen.setText(str);
             }
         });
         
@@ -87,7 +118,16 @@ public class StandardCalculator extends Frame {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                
+                String newString = "";
+                for(int i = 0 ; i < str.length()-1 ; i++){
+                    newString += str.charAt(i);
+                }
+                str = newString;
+                if(str.length()==0){
+                    str = "0";
+                }
+                screen.setText(str);
             }
         });
         
@@ -100,11 +140,14 @@ public class StandardCalculator extends Frame {
         inverse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                currentNumber = Double.parseDouble(str);
+                currentNumber = 1/currentNumber;
+                str = String.valueOf(currentNumber);
+                screen.setText(str);
             }
         });
         
-        Button square = new Button("x^2");
+        Button square = new Button("x²");
         square.setFont(buttonFont);
         square.setBounds(93, 270, 80, 60);
         add(square);
@@ -112,7 +155,10 @@ public class StandardCalculator extends Frame {
         square.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                currentNumber = Double.parseDouble(str);
+                currentNumber *= currentNumber;
+                str = String.valueOf(currentNumber);
+                screen.setText(str);
             }
         });
         
@@ -124,7 +170,10 @@ public class StandardCalculator extends Frame {
         squareroot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                currentNumber = Double.parseDouble(str);
+                currentNumber = Math.sqrt(currentNumber);
+                str = String.valueOf(currentNumber);
+                screen.setText(str);
             }
         });
         
@@ -136,7 +185,23 @@ public class StandardCalculator extends Frame {
         divide.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(sign == 0){
+                    numberOne = Double.parseDouble(str);
+                    sign = 4;
+                    str = "0";
+                    screen.setText(str); 
+                    System.out.println("Number One: " + numberOne);
+                }else{
+                    numberTwo = Double.parseDouble(str);
+                    numberOne /= numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                if(numberOne == 0.0){
+                    str = "0";
+                    screen.setText(str);
+                }
             }
         });
         
@@ -150,7 +215,11 @@ public class StandardCalculator extends Frame {
         seven.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='7';
+                else 
+                    str = "7";
+                screen.setText(str);
             }
         });
         
@@ -162,7 +231,11 @@ public class StandardCalculator extends Frame {
         eight.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='8';
+                else 
+                    str = "8";
+                screen.setText(str);
             }
         });
         
@@ -174,7 +247,11 @@ public class StandardCalculator extends Frame {
         nine.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='9';
+                else 
+                    str = "9";
+                screen.setText(str);
             }
         });
         
@@ -188,7 +265,23 @@ public class StandardCalculator extends Frame {
         multification.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(sign == 0){
+                    numberOne = Double.parseDouble(str);
+                    sign = 3;
+                    str = "0";
+                    screen.setText(str); 
+                    System.out.println("Number One: " + numberOne);
+                }else{
+                    numberTwo = Double.parseDouble(str);
+                    numberOne *= numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                if(numberOne == 0.0){
+                    str = "0";
+                    screen.setText(str);
+                }
             }
         });
         
@@ -201,7 +294,11 @@ public class StandardCalculator extends Frame {
         four.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='4';
+                else 
+                    str = "4";
+                screen.setText(str);
             }
         });
         
@@ -213,7 +310,11 @@ public class StandardCalculator extends Frame {
         five.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='5';
+                else 
+                    str = "5";
+                screen.setText(str);
             }
         });
         
@@ -225,7 +326,11 @@ public class StandardCalculator extends Frame {
         six.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='6';
+                else 
+                    str = "6";
+                screen.setText(str);
             }
         });
         
@@ -238,7 +343,23 @@ public class StandardCalculator extends Frame {
         subtraction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(sign == 0){
+                    numberOne = Double.parseDouble(str);
+                    sign = 2;
+                    str = "0";
+                    screen.setText(str); 
+                    System.out.println("Number One: " + numberOne);
+                }else{
+                    numberTwo = Double.parseDouble(str);
+                    numberOne -= numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                if(numberOne == 0.0){
+                    str = "0";
+                    screen.setText(str);
+                }
             }
         });
         
@@ -253,7 +374,11 @@ public class StandardCalculator extends Frame {
         one.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='1';
+                else 
+                    str = "1";
+                screen.setText(str);
             }
         });
         
@@ -265,7 +390,11 @@ public class StandardCalculator extends Frame {
         two.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='2';
+                else 
+                    str = "2";
+                screen.setText(str);
             }
         });
         
@@ -277,7 +406,11 @@ public class StandardCalculator extends Frame {
         three.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='3';
+                else 
+                    str = "3";
+                screen.setText(str);
             }
         });
         
@@ -289,7 +422,23 @@ public class StandardCalculator extends Frame {
         plus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(sign == 0){
+                    numberOne = Double.parseDouble(str);
+                    sign = 1;
+                    str = "0";
+                    screen.setText(str); 
+                    System.out.println("Number One: " + numberOne);
+                }else{
+                    numberTwo = Double.parseDouble(str);
+                    numberOne += numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                if(numberOne == 0.0){
+                    str = "0";
+                    screen.setText(str);
+                }
             }
         });
         
@@ -301,7 +450,10 @@ public class StandardCalculator extends Frame {
         toggleSign.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                currentNumber = Double.parseDouble(str);
+                currentNumber *= -1;
+                str = String.valueOf(currentNumber);
+                screen.setText(str);
             }
         });
         
@@ -313,7 +465,11 @@ public class StandardCalculator extends Frame {
         zero.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(!str.equals("0"))
+                    str+='0';
+                else 
+                    str = "0";
+                screen.setText(str);
             }
         });
         
@@ -325,7 +481,14 @@ public class StandardCalculator extends Frame {
         dot.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(str.contains(".")){
+                    return;
+                }
+                if(!str.equals("0"))
+                    str+='.';
+                else 
+                    str = ".";
+                screen.setText(str);
             }
         });
         
@@ -338,11 +501,65 @@ public class StandardCalculator extends Frame {
         equal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if(sign == 0 ){
+                    str = "0";
+                    screen.setText(str);
+                    return;
+                }
+                else if (sign == 1){
+                    numberTwo = Double.parseDouble(str);
+                    numberOne += numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                else if (sign == 2){
+                    numberTwo = Double.parseDouble(str);
+                    numberOne -= numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                else if (sign == 3){
+                    numberTwo = Double.parseDouble(str);
+                    numberOne *= numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                else if (sign == 4){
+                    numberTwo = Double.parseDouble(str);
+                    numberOne /= numberTwo;
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                else if (sign == 5){
+                    numberTwo = Double.parseDouble(str);
+                    numberOne = numberOne * ( numberTwo / 100 );
+                    str = String.valueOf(numberOne);
+                    screen.setText(str);
+                    sign = 0;
+                }
+                
+                if(numberOne == 0.0){
+                    str = "0";
+                    screen.setText(str);
+                }
+                
             }
         });
         
         
+        Label aboutMe = new Label();
+        
+        aboutMe.setAlignment(1);
+        aboutMe.setBounds(10,595,330,80);
+        aboutMe.setText(about);
+        aboutMe.setBackground(Color.gray);
+        aboutMe.setFont(new Font("Lucida",Font.PLAIN,28));
+        aboutMe.setForeground(Color.black);
+        add(aboutMe);
         
         setResizable(false);
         setBackground(Color.white);
@@ -353,5 +570,7 @@ public class StandardCalculator extends Frame {
     public static void main(String[] args) {
         new StandardCalculator();
     }
+    
+    
 
 }
